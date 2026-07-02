@@ -1,104 +1,51 @@
-{
-  "name": "Swytchcode",
-  "description": "An API execution layer / runtime for AI agents and developers, delivered primarily as a CLI (npm-distributed) with a local/self-hosted MCP server. It sits between agents and 2,000+ production APIs, handling auth injection, retries, idempotency, schema validation, and policy control.",
-  "url": "https://swytchcode.apievangelist.com/apis.yml",
-  "created": "2026-07-02",
-  "modified": "2026-07-02",
-  "specificationVersion": "0.21",
-  "tags": [
-    "Developer Tools",
-    "API Integration",
-    "iPaaS",
-    "AI Agents",
-    "Agentic Infrastructure",
-    "MCP",
-    "API Execution",
-    "Orchestration Runtime",
-    "CLI Tooling",
-    "API Reliability",
-    "Policy & Governance",
-    "SDK/Docs Tooling"
-  ],
-  "apis": [
-    {
-      "name": "Swytchcode MCP Server",
-      "description": "Local/self-hosted MCP server launched via the CLI (swytchcode mcp serve). Binds to 127.0.0.1:5476 with an SSE endpoint at /sse. Offers agent and full tool profiles for MCP clients like Cursor, Claude Code, and Copilot.",
-      "humanURL": "https://docs.swytchcode.com/cli/mcp/",
-      "baseURL": "http://localhost:5476/sse",
-      "tags": [
-        "Developer Tools",
-        "API Integration",
-        "iPaaS",
-        "AI Agents",
-        "Agentic Infrastructure",
-        "MCP",
-        "API Execution",
-        "Orchestration Runtime",
-        "CLI Tooling",
-        "API Reliability",
-        "Policy & Governance",
-        "SDK/Docs Tooling"
-      ],
-      "properties": [
-        {
-          "type": "MCP",
-          "url": "http://localhost:5476/sse"
-        },
-        {
-          "type": "Documentation",
-          "url": "https://docs.swytchcode.com/cli/mcp/"
-        }
-      ]
-    },
-    {
-      "name": "Swytchcode Documentation & Agent Surfaces",
-      "description": "Primary documentation and agent-native surfaces including the llms.txt, CLI command reference, and exec reference for the Swytchcode runtime.",
-      "humanURL": "https://docs.swytchcode.com",
-      "baseURL": "https://docs.swytchcode.com",
-      "tags": [
-        "Developer Tools",
-        "API Integration",
-        "iPaaS",
-        "AI Agents",
-        "Agentic Infrastructure",
-        "MCP",
-        "API Execution",
-        "Orchestration Runtime",
-        "CLI Tooling",
-        "API Reliability",
-        "Policy & Governance",
-        "SDK/Docs Tooling"
-      ],
-      "properties": [
-        {
-          "type": "LLMSTxt",
-          "url": "https://docs.swytchcode.com/llms.txt"
-        },
-        {
-          "type": "Documentation",
-          "url": "https://docs.swytchcode.com"
-        },
-        {
-          "type": "Documentation",
-          "url": "https://docs.swytchcode.com/cli/commands/"
-        },
-        {
-          "type": "Documentation",
-          "url": "https://docs.swytchcode.com/cli/exec/"
-        }
-      ]
-    }
-  ],
-  "maintainers": [
-    {
-      "FN": "Swytchcode",
-      "url": "https://github.com/swytchcodehq"
-    }
-  ],
-  "generated": {
-    "by": "apis.io/add",
-    "model": "claude-opus-4-8",
-    "confidence": 88,
-    "at": "2026-07-02T22:14:10.014Z"
-  }
-}
+name: Swytchcode
+description: >-
+  Deterministic API-execution layer for AI agents and developers that sits between an agent and production APIs,
+  handling auth, retries, idempotency, and policy control across 2,000+ APIs. Consumable via a public npm-installable
+  CLI and a local MCP server, with a published llms.txt.
+url: https://swytchcode.apievangelist.com/apis.yml
+created: '2026-07-02'
+modified: '2026-07-02'
+specificationVersion: '0.21'
+tags:
+  - AI agent tooling
+  - agentic middleware
+  - API integration
+  - API orchestration
+  - API execution layer
+  - LLM tool execution
+  - MCP server
+  - developer tools
+  - API documentation
+  - API playground
+apis:
+  - name: Swytchcode Documentation & Agent Surfaces
+    description: >-
+      Swytchcode's publicly consumable surfaces: developer documentation and a published llms.txt. The primary interface
+      is an npm-installable CLI plus a local MCP server (localhost-only, not a hosted endpoint).
+    humanURL: https://docs.swytchcode.com
+    baseURL: https://docs.swytchcode.com
+    tags:
+      - AI agent tooling
+      - agentic middleware
+      - API integration
+      - API orchestration
+      - API execution layer
+      - LLM tool execution
+      - MCP server
+      - developer tools
+      - API documentation
+      - API playground
+    properties:
+      - type: Documentation
+        url: https://docs.swytchcode.com
+      - type: LLMSTxt
+        url: https://docs.swytchcode.com/llms.txt
+maintainers:
+  - FN: Aditya Rohit
+    url: https://www.swytchcode.com/about
+generated:
+  by: apis.io/add
+  model: claude-opus-4-8
+  confidence: 85
+  at: '2026-07-02T22:28:34.614Z'
