@@ -5,7 +5,7 @@ description: >-
   CLI and a local MCP server, with a published llms.txt.
 url: https://swytchcode.apievangelist.com/apis.yml
 created: '2026-07-02'
-modified: '2026-07-02'
+modified: '2026-06-20'
 specificationVersion: '0.21'
 tags:
   - AI agent tooling
@@ -49,3 +49,20 @@ generated:
   model: claude-opus-4-8
   confidence: 85
   at: '2026-07-02T22:28:34.614Z'
+common:
+  - url: https://blog.swytchcode.com/feed/
+    type: Blog
+  - type: Packages
+    url: packages/swytchcode-packages.yml
+  - type: WellKnown
+    url: well-known/swytchcode-well-known.yml
+  - type: MCPServer
+    url: mcp/swytchcode-mcp.yml
+  - type: LLMsTxt
+    url: llms/swytchcode-llms.txt
+  - type: LLMsTxt
+    url: llms/swytchcode-llms-full.txt
+  - type: Conformance
+    url: conformance/swytchcode-conformance.yml
+  - type: Lifecycle
+    url: lifecycle/swytchcode-lifecycle.yml

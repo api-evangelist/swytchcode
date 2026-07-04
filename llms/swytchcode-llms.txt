@@ -1,0 +1,69 @@
+# Swytchcode
+
+> Swytchcode sits between your AI agent and production code — handling auth, retries, idempotency, and policy control across 2000+ APIs.
+
+Swytchcode is an API execution layer for AI agents and developers. Instead of hardcoding credentials, writing retry logic, and managing idempotency per integration, Swytchcode handles all of it at the CLI layer before the call leaves your machine.
+
+- Auth injection — API keys, OAuth tokens, and headers resolved automatically
+- Retries and idempotency — failed calls retry with backoff; duplicate requests deduplicated
+- Policy control — rate limits, allowlists, and execution rules enforced before the call is made
+- AI agent ready — structured JSON errors and MCP support so agents always know what happened
+- 2000+ APIs — Stripe, GitHub, Slack, Notion, and more
+
+## Try instantly
+
+```bash
+npx swytchcode
+```
+
+## Install and use
+
+```bash
+npm install -g swytchcode
+
+swytchcode login
+
+swytchcode exec stripe.create_payment \
+  --body '{"amount":5000,"currency":"usd"}'
+```
+
+## For AI agents (MCP)
+
+Wire up Cursor or Claude Code with one command — registers the MCP server in your editor's config and starts the daemon automatically:
+
+```bash
+# Cursor
+swytchcode init --editor=cursor --mode=sandbox
+
+# Claude Code
+swytchcode init --editor=claude --mode=sandbox
+```
+
+Or start the MCP server manually:
+
+```bash
+swytchcode mcp serve --transport http --port 5476 --daemon
+```
+
+SSE endpoint: `http://localhost:5476/sse`
+
+## Docs
+
+- Quickstart: https://docs.swytchcode.com/quickstart/getstarted/
+- CLI reference: https://docs.swytchcode.com/cli/commands/
+- exec: https://docs.swytchcode.com/cli/exec/
+- MCP server: https://docs.swytchcode.com/cli/mcp/
+- AI agents: https://docs.swytchcode.com/cli/agents/
+- API keys: https://docs.swytchcode.com/guides/apikey/
+- Integrations: https://docs.swytchcode.com/guides/integrations/
+- Changelog: https://docs.swytchcode.com/support/changelog/
+
+## Links
+
+- Website: https://swytchcode.com
+- Pricing: https://swytchcode.com/pricing
+- Discord: https://discord.gg/zuSXSv5GWs
+- X: https://x.com/swytchcode
+- LinkedIn: https://www.linkedin.com/company/swytchcode
+- contact : https://swytchcode.com/contact
+- GitHub : https://github.com/swytchcodehq

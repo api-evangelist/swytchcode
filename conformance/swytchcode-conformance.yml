@@ -1,0 +1,22 @@
+generated: '2026-06-20'
+method: searched
+source: https://docs.swytchcode.com/ , https://www.swytchcode.com/llms-full.txt
+standards:
+  - id: model-context-protocol
+    conforms: true
+    evidence: Ships an MCP server (`swytchcode mcp serve`) exposing tools over stdio and HTTP/SSE; documented at docs.swytchcode.com/cli/mcp/.
+  - id: llms-txt
+    conforms: true
+    evidence: Publishes /llms.txt (docs + marketing hosts) and /llms-full.txt on www.swytchcode.com.
+  - id: idempotency
+    conforms: true
+    evidence: Product handles idempotency for API calls at the CLI/execution layer (docs and blog reference idempotency + retries).
+  - id: oauth2
+    conforms: false
+    evidence: CLI uses account login + a bearer MCP token; no public OAuth2 authorization-server metadata found.
+  - id: oidc
+    conforms: false
+    evidence: No /.well-known/openid-configuration published.
+  - id: rfc9457-problem-details
+    conforms: false
+    evidence: No public OpenAPI or application/problem+json surface; CLI reports errors on stderr with non-zero exit codes.

@@ -1,0 +1,29 @@
+generated: '2026-06-20'
+method: searched
+source: probed /.well-known/ on documentation, marketing, and CLI hosts
+hosts:
+  - host: https://docs.swytchcode.com
+    documents:
+      - path: /.well-known/security.txt
+        status: 404
+      - path: /.well-known/openid-configuration
+        status: 404
+      - path: /.well-known/oauth-authorization-server
+        status: 404
+      - path: /.well-known/ai-plugin.json
+        status: 404
+      - path: /.well-known/api-catalog
+        status: 404
+  - host: https://www.swytchcode.com
+    documents:
+      - path: /.well-known/security.txt
+        status: 404
+  - host: https://cli.swytchcode.com
+    documents:
+      - path: /.well-known/security.txt
+        status: 404
+notes: >-
+  No /.well-known/ discovery documents are published on any Swytchcode host.
+  Swytchcode is a locally-installed CLI + localhost MCP server rather than a hosted
+  API surface, so OIDC/OAuth discovery and security.txt are not applicable to a
+  public base host. Empty result is expected.

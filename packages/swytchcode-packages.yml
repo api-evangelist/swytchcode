@@ -1,0 +1,21 @@
+generated: '2026-06-20'
+method: searched
+source: https://registry.npmjs.org/swytchcode
+packages:
+  - language: javascript
+    registry: npm
+    name: swytchcode
+    version: 2.10.3
+    url: https://www.npmjs.com/package/swytchcode
+    install: npm install -g swytchcode
+    run: npx swytchcode
+    homepage: https://cli.swytchcode.com
+    description: Execution authority layer for API integrations (the Swytchcode CLI + local MCP server).
+    official: true
+  - language: python
+    registry: github
+    name: langswytch
+    url: https://github.com/swytchcodehq/langswytch
+    description: LangGraph + Swytchcode integration for Python agents. Published in the Swytchcode GitHub org; not on PyPI.
+    official: true
+    note: Not found on PyPI (404 as of probe); source-only distribution.

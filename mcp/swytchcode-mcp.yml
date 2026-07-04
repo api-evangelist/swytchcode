@@ -1,0 +1,42 @@
+generated: '2026-06-20'
+method: searched
+status: published
+source: https://docs.swytchcode.com/cli/mcp/
+server:
+  name: swytchcode
+  description: >-
+    Local MCP server shipped inside the Swytchcode CLI (npm package `swytchcode`).
+    Runs on the developer's machine, not a hosted/remote endpoint.
+  package: swytchcode
+  command: swytchcode mcp serve
+  transport: stdio            # default; also exposes http/sse in daemon mode
+  url: http://localhost:5476/sse   # localhost only, HTTP/SSE daemon mode
+  auth:
+    type: bearer
+    note: Bearer token required for HTTP transport; stored at ~/.swytchcode/mcp_token (rotate via `swytchcode mcp token --rotate`).
+profiles:
+  - name: agent
+    default: true
+    tools:
+      - name: swytchcode_discover
+        description: Find the right method from a plain-English description.
+      - name: swytchcode_info
+        description: Inspect a tool's input/output schema.
+      - name: swytchcode_exec
+        description: Execute a tool. Supports demo, explain, dry_run, json, verbose, raw params.
+  - name: full
+    default: false
+    description: Adds setup/management tools on top of the agent profile.
+    tools:
+      - name: swytchcode_list
+      - name: swytchcode_search
+      - name: swytchcode_get
+      - name: swytchcode_add
+      - name: swytchcode_plan
+      - name: swytchcode_check
+      - name: swytchcode_inspect
+      - name: swytchcode_diff
+      - name: swytchcode_upgrade
+      - name: swytchcode_init
+      - name: swytchcode_bootstrap
+      - name: swytchcode_version

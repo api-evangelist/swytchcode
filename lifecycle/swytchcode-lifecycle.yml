@@ -1,0 +1,21 @@
+generated: '2026-06-20'
+method: searched
+source: https://registry.npmjs.org/swytchcode , https://docs.swytchcode.com/support/changelog/
+versioning:
+  scheme: semver
+  current: 2.10.3
+  distribution: npm package `swytchcode`
+  docs: https://docs.swytchcode.com/support/changelog/
+changelog:
+  url: https://docs.swytchcode.com/support/changelog/
+  note: Separate changelogs for the customer web application and the CLI/plugin.
+deprecation:
+  policy_url: null
+  sunset_header: false
+  note: No published deprecation policy or RFC 8594 Sunset/Deprecation header support found.
+sla:
+  url: null
+  uptime_target: null
+  note: No published SLA. Core execution runs locally via the CLI/MCP server.
+status_page: null
+deprecated_operations: []
