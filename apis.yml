@@ -50,6 +50,8 @@ generated:
   confidence: 85
   at: '2026-07-02T22:28:34.614Z'
 common:
+  - type: DomainSecurity
+    url: security/swytchcode-domain-security.yml
   - url: https://blog.swytchcode.com/feed/
     type: Blog
   - type: Packages
