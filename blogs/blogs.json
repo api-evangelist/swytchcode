@@ -1,6 +1,14 @@
 {
   "repo": "swytchcode",
-  "feeds": [ { "source": "https://blog.swytchcode.com/feed/", "feed_url": "https://blog.swytchcode.com/feed/", "title": "Swytchcode", "saved": 5 } ],
-  "fetched": "2026-07-04T17:53:07Z",
-  "post_count": 5
+  "feeds": [
+    {
+      "source": "https://blog.swytchcode.com/feed/",
+      "feed_url": "https://blog.swytchcode.com/feed/",
+      "title": "",
+      "saved": 0,
+      "method": "feed"
+    }
+  ],
+  "fetched": "2026-07-11T11:50:51Z",
+  "post_count": 6
 }
