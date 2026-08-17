@@ -15,7 +15,7 @@ description: >-
   Deterministic API-execution layer for AI agents and developers that sits between an agent and production APIs,
   handling auth, retries, idempotency, and policy control across 2,000+ APIs. Consumable via a public npm-installable
   CLI and a local MCP server, with a published llms.txt.
-url: https://swytchcode.apievangelist.com/apis.yml
+url: https://raw.githubusercontent.com/api-evangelist/swytchcode/refs/heads/main/apis.yml
 created: '2026-07-02'
 modified: '2026-06-20'
 specificationVersion: '0.21'
