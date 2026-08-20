@@ -20,6 +20,17 @@ created: '2026-07-02'
 modified: '2026-06-20'
 specificationVersion: '0.23'
 tags:
+  - AI / Agent Tooling
+  - agentic middleware
+  - API Integration
+  - API Orchestration
+  - API execution layer
+  - LLM tool execution
+  - MCP Server
+  - Developer Tools
+  - API Documentation
+  - API playground
+tags_raw:
   - AI agent tooling
   - agentic middleware
   - API integration
@@ -38,6 +49,17 @@ apis:
     humanURL: https://docs.swytchcode.com
     baseURL: https://docs.swytchcode.com
     tags:
+      - AI / Agent Tooling
+      - agentic middleware
+      - API Integration
+      - API Orchestration
+      - API execution layer
+      - LLM tool execution
+      - MCP Server
+      - Developer Tools
+      - API Documentation
+      - API playground
+    tags_raw:
       - AI agent tooling
       - agentic middleware
       - API integration
