@@ -1,21 +1,54 @@
-generated: '2026-06-20'
+generated: '2026-09-03'
 method: searched
-source: https://registry.npmjs.org/swytchcode
+source: https://registry.npmjs.org/-/v1/search?text=swytchcode , https://pypi.org/pypi/swytchcode-runtime/json , https://proxy.golang.org/github.com/swytchcodehq/runtime-go/@latest
 packages:
   - language: javascript
     registry: npm
     name: swytchcode
-    version: 2.10.3
+    version: 2.20.15
+    published: '2026-08-21'
     url: https://www.npmjs.com/package/swytchcode
     install: npm install -g swytchcode
-    run: npx swytchcode
+    run: swy   # `swy` is the short alias for `swytchcode`
     homepage: https://cli.swytchcode.com
-    description: Execution authority layer for API integrations (the Swytchcode CLI + local MCP server).
+    repository: https://gitlab.com/swytchcode/cli
+    description: The Swytchcode CLI + local MCP server ("execution authority layer for API integrations"). Ships per-platform binary sub-packages (swytchcode-cli-darwin-arm64/x64, -linux-arm64/x64, -win32-arm64/x64), all at the same version.
+    official: true
+  - language: javascript
+    registry: npm
+    name: '@swytchcode/runtime'
+    version: 1.1.6
+    published: '2026-08-21'
+    url: https://www.npmjs.com/package/@swytchcode/runtime
+    install: npm install @swytchcode/runtime
+    repository: https://github.com/swytchcodehq/runtime-js
+    description: JS/TS Runtime SDK — thin runtime wrapper around the Swytchcode CLI for building agents (Node.js, Bun, Next.js).
+    official: true
+  - language: python
+    registry: pypi
+    name: swytchcode-runtime
+    version: 1.1.5
+    published: '2026-08-21'
+    url: https://pypi.org/project/swytchcode-runtime/
+    install: pip install swytchcode-runtime
+    repository: https://github.com/swytchcodehq/runtime-py
+    description: Python Runtime SDK — thin runtime wrapper around the Swytchcode CLI.
+    official: true
+  - language: go
+    registry: go
+    name: github.com/swytchcodehq/runtime-go
+    version: v0.1.4
+    published: '2026-04-12'
+    url: https://pkg.go.dev/github.com/swytchcodehq/runtime-go
+    install: go get github.com/swytchcodehq/runtime-go
+    repository: https://github.com/swytchcodehq/runtime-go
+    description: Go SDK for building Swytchcode agents. Last release trails the JS/Python runtimes by four months.
     official: true
   - language: python
     registry: github
     name: langswytch
+    version: null
+    published: null
     url: https://github.com/swytchcodehq/langswytch
-    description: LangGraph + Swytchcode integration for Python agents. Published in the Swytchcode GitHub org; not on PyPI.
+    description: LangGraph + Swytchcode integration for Python agents. Source-only distribution in the GitHub org; not published to PyPI (404 on prior probe).
     official: true
-    note: Not found on PyPI (404 as of probe); source-only distribution.

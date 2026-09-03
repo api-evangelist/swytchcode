@@ -1,14 +1,17 @@
-generated: '2026-06-20'
+generated: '2026-09-03'
 method: searched
-source: https://registry.npmjs.org/swytchcode , https://docs.swytchcode.com/support/changelog/
+source: https://registry.npmjs.org/swytchcode , https://www.swytchcode.com/pricing
 versioning:
   scheme: semver
-  current: 2.10.3
-  distribution: npm package `swytchcode`
-  docs: https://docs.swytchcode.com/support/changelog/
+  current: 2.20.15
+  released: '2026-08-21'
+  distribution: npm package `swytchcode` (+ per-platform binary sub-packages)
 changelog:
-  url: https://docs.swytchcode.com/support/changelog/
-  note: Separate changelogs for the customer web application and the CLI/plugin.
+  url: null
+  note: >-
+    The docs changelog page (https://docs.swytchcode.com/support/changelog/) recorded in a
+    prior round now returns 404 (probed 2026-09-03); no replacement page found. Dated release
+    history is derived from the npm registry in changelog/swytchcode-changelog.yml.
 deprecation:
   policy_url: null
   sunset_header: false
@@ -16,6 +19,9 @@ deprecation:
 sla:
   url: null
   uptime_target: null
-  note: No published SLA. Core execution runs locally via the CLI/MCP server.
+  note: >-
+    No published SLA for Free/Pro; the Enterprise plan advertises "custom SLAs"
+    (https://www.swytchcode.com/pricing). Core execution runs locally via the CLI/MCP server.
 status_page: null
+status_page_note: status.swytchcode.com does not resolve (NXDOMAIN, probed 2026-09-03); no status page found.
 deprecated_operations: []

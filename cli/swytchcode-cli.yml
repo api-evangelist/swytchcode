@@ -1,0 +1,57 @@
+generated: '2026-09-03'
+method: searched
+source: https://docs.swytchcode.com/reference/commands/ , https://docs.swytchcode.com/cli/exec/ , https://docs.swytchcode.com/llms.txt
+name: swytchcode
+alias: swy
+description: >-
+  First-party CLI and the primary product surface. Swytchcode is a self-hosted AI agent
+  execution layer: the CLI installs API integrations, enforces guard policies, resolves
+  credentials, and executes third-party API tools deterministically. Also embeds the local
+  MCP server (`swy mcp serve`).
+install:
+  - method: npm
+    command: npm install -g swytchcode
+  - method: script
+    command: curl/irm platform install scripts (see docs.swytchcode.com)
+docs: https://docs.swytchcode.com/reference/commands/
+homepage: https://cli.swytchcode.com
+commands:
+  - group: Project setup
+    commands:
+      - { name: swy init, description: "Initialize .swytchcode/, create tooling.json, install editor rules, register the MCP server" }
+      - { name: swy get, description: Fetch integration bundles without modifying tooling.json }
+      - { name: swy bootstrap, description: Install all integrations declared in tooling.json (CI-friendly) }
+      - { name: swy add, description: Enable methods, workflows, or integrations in tooling.json }
+      - { name: swy policy, description: Manage guard-policy rules evaluated before execution }
+      - { name: swy sync, description: Re-fetch workflow lists; warn about stale method hashes }
+      - { name: swy workflow, description: Create, validate, publish, or pull SWF v1 workflow files }
+  - group: Discovery and inspection
+    commands:
+      - { name: swy discover, description: Semantic search for methods/workflows by plain-English intent }
+      - { name: swy info, description: Detailed tool info with resolved input/output schemas }
+      - { name: swy list, description: List tools and integrations from local state only }
+      - { name: swy search, description: Search the remote registry (results cached 1 hour) }
+      - { name: swy plan, description: Preview ordered workflow steps without executing }
+  - group: Execution and examples
+    commands:
+      - { name: swy exec, description: "Execute a method or workflow; supports --dry-run, --demo, --explain, piped-JSON input" }
+      - { name: swy demo, description: Run bundled demos without setup or API keys }
+      - { name: swy examples, description: Download ready-to-run example projects }
+  - group: System and diagnostics
+    commands:
+      - { name: swy audit, description: View network activity, policy violations, execution stats }
+      - { name: swy config, description: Manage telemetry, cloud sync, and settings }
+      - { name: swy doctor, description: Local diagnostics; --network checks endpoint reachability }
+      - { name: swy mcp, description: Start/manage the embedded MCP server (stdio or HTTP/SSE) }
+  - group: Authentication
+    commands:
+      - { name: swy login / swy logout, description: OAuth device-flow browser authentication; session at ~/.swytchcode/auth.json }
+      - { name: swy whoami, description: Show current auth state }
+      - { name: swy auth, description: Manage third-party provider connections (connect/status/disconnect) and workspace linking }
+exit_codes:
+  - { code: 0, meaning: success }
+  - { code: 1, meaning: execution failed }
+  - { code: 2, meaning: invalid input or validation error }
+  - { code: 3, meaning: authentication failed }
+  - { code: 4, meaning: execution blocked by policy }
+  - { code: 5, meaning: tool not found }

@@ -1,0 +1,23 @@
+generated: '2026-09-03'
+method: derived
+source: https://registry.npmjs.org/swytchcode (version time map)
+scheme: semver
+current_version: 2.20.15
+distribution: npm package `swytchcode`
+docs_changelog: null
+notes: >-
+  The docs changelog page recorded in a prior round
+  (https://docs.swytchcode.com/support/changelog/) now returns 404 (probed 2026-09-03), and no
+  replacement changelog page was found on the docs or marketing hosts. The npm registry's
+  version time map is the provider-published, dated release record: 140 versions since
+  0.1.6 (2025-04-30), with a fast release cadence.
+entries:
+  - { version: 2.20.15, date: '2026-08-21' }
+  - { version: 2.20.14, date: '2026-08-16' }
+  - { version: 2.20.13, date: '2026-08-14' }
+  - { version: 2.20.12, date: '2026-08-14' }
+  - { version: 2.20.11, date: '2026-08-13' }
+  - { version: 2.20.10, date: '2026-08-12' }
+  - { version: 2.20.4, date: '2026-08-08' }
+first_release: { version: 0.1.6, date: '2025-04-30' }
+total_versions: 140

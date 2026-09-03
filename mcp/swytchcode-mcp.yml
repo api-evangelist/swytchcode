@@ -1,51 +1,55 @@
-generated: '2026-06-20'
+generated: '2026-09-03'
 method: searched
 status: published
-source: https://docs.swytchcode.com/cli/mcp/
+source: https://docs.swytchcode.com/reference/mcp-reference/ , https://docs.swytchcode.com/cli/mcp/
 server:
   name: swytchcode
-  description: Local MCP server shipped inside the Swytchcode CLI (npm package `swytchcode`). Runs on
-    the developer's machine, not a hosted/remote endpoint.
+  description: >-
+    Local MCP server embedded in the Swytchcode CLI (npm package `swytchcode`). Runs on the
+    developer's machine over stdio (default) or HTTP/SSE — there is no hosted/remote endpoint.
+    Registered into editors (Cursor, Claude Code, Windsurf, Copilot, Gemini CLI, Codex, Hermes,
+    OpenClaw) via `swy init --editor=...`.
   package: swytchcode
-  command: swytchcode mcp serve
-  transport: stdio
-  url: http://localhost:5476/sse
+  command: swy mcp serve
+  transports: [stdio, http-sse]
+  http_command: swy mcp serve --transport http --port 5476
   auth:
-    type: bearer
-    note: Bearer token required for HTTP transport; stored at ~/.swytchcode/mcp_token (rotate via `swytchcode
-      mcp token --rotate`).
+    stdio: none
+    http:
+      type: bearer
+      note: HTTP transport requires a bearer token stored at ~/.swytchcode/mcp_token (retrieve via `swy mcp token`).
 profiles:
-- name: agent
-  default: true
-  tools:
-  - name: swytchcode_discover
-    description: Find the right method from a plain-English description.
-  - name: swytchcode_info
-    description: Inspect a tool's input/output schema.
-  - name: swytchcode_exec
-    description: Execute a tool. Supports demo, explain, dry_run, json, verbose, raw params.
-- name: full
-  default: false
-  description: Adds setup/management tools on top of the agent profile.
-  tools:
-  - name: swytchcode_list
-  - name: swytchcode_search
-  - name: swytchcode_get
-  - name: swytchcode_add
-  - name: swytchcode_plan
-  - name: swytchcode_check
-  - name: swytchcode_inspect
-  - name: swytchcode_diff
-  - name: swytchcode_upgrade
-  - name: swytchcode_init
-  - name: swytchcode_bootstrap
-  - name: swytchcode_version
+  - name: agent
+    default: true
+    tools:
+      - { name: swytchcode_discover, description: Find API capabilities by natural-language intent }
+      - { name: swytchcode_info, description: Get the input/output schema for a tool by canonical ID }
+      - { name: swytchcode_exec, description: "Execute a tool by canonical ID. Supports dry_run, demo, and explain modes" }
+      - { name: swytchcode_list, description: List locally available tools and integrations (no registry calls) }
+      - { name: swytchcode_search, description: Search the remote registry for integrations and published workflows }
+      - { name: swytchcode_add, description: Enable an already-installed tool by ID }
+      - { name: swytchcode_policy, description: List configured execution guard policies (read-only) }
+  - name: full
+    default: false
+    description: Adds 7 setup/administration tools on top of the agent profile (14 total).
+    tools:
+      - { name: swytchcode_init, description: Initialize Swytchcode project structure }
+      - { name: swytchcode_bootstrap, description: Fetch all integrations declared in tooling.json that aren't already installed }
+      - { name: swytchcode_version, description: Display current version }
+      - { name: swytchcode_get, description: Fetch and install integration bundles (methods only) }
+      - { name: swytchcode_add_workflow, description: Install published workflows with auto-fetching }
+      - { name: swytchcode_doctor, description: "Run local diagnostics: tooling, bundles, manifest, base URLs, auth posture" }
+      - { name: swytchcode_plan, description: Show the ordered steps for a workflow by canonical ID }
 deployment:
-  mode: none
-  endpoint: http://localhost:5476/sse
-  verified: probed
-  probe: dead
-  note: the endpoint this manifest claimed did not answer; recorded as none rather than deleted so the
-    claim stays auditable
-  checked: '2026-08-12'
-  source: catalog MCP census
+  mode: local-stdio
+  install: npm install -g swytchcode && swy mcp serve
+  package: https://www.npmjs.com/package/swytchcode
+  auth: none
+  verified: searched
+  note: >-
+    No hosted MCP endpoint exists; the server runs only on the user's machine. stdio is the
+    default transport and needs no auth; the optional local HTTP/SSE transport
+    (http://localhost:5476/sse) requires a bearer token from ~/.swytchcode/mcp_token. A prior
+    round recorded mode: none after probing the localhost URL from the catalog — that probe can
+    never succeed remotely; the docs unambiguously describe a shipped local-stdio server.
+  checked: '2026-09-03'

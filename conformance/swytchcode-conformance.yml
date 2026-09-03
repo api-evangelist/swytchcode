@@ -1,22 +1,25 @@
-generated: '2026-06-20'
+generated: '2026-09-03'
 method: searched
-source: https://docs.swytchcode.com/ , https://www.swytchcode.com/llms-full.txt
+source: https://docs.swytchcode.com/llms.txt , https://docs.swytchcode.com/guides/idempotency/ , https://docs.swytchcode.com/guides/authentication/
 standards:
   - id: model-context-protocol
     conforms: true
-    evidence: Ships an MCP server (`swytchcode mcp serve`) exposing tools over stdio and HTTP/SSE; documented at docs.swytchcode.com/cli/mcp/.
+    evidence: Ships an embedded MCP server (`swy mcp serve`) over stdio and HTTP/SSE with documented agent (7-tool) and full (14-tool) profiles — https://docs.swytchcode.com/reference/mcp-reference/
   - id: llms-txt
     conforms: true
-    evidence: Publishes /llms.txt (docs + marketing hosts) and /llms-full.txt on www.swytchcode.com.
+    evidence: Publishes /llms.txt on docs.swytchcode.com and www.swytchcode.com, and /llms-full.txt on www.swytchcode.com (all 200, probed 2026-09-03).
   - id: idempotency
     conforms: true
-    evidence: Product handles idempotency for API calls at the CLI/execution layer (docs and blog reference idempotency + retries).
+    evidence: 'Documented idempotency engine with modes none/dynamic, Idempotency-Key header, call/workflow scope, configured in manifest.json execution_policy — https://docs.swytchcode.com/guides/idempotency/'
   - id: oauth2
-    conforms: false
-    evidence: CLI uses account login + a bearer MCP token; no public OAuth2 authorization-server metadata found.
+    conforms: true
+    evidence: Account auth uses an OAuth device flow (`swy login`); third-party provider OAuth is WorkOS-managed — https://docs.swytchcode.com/guides/authentication/. No public authorization-server metadata is published (no hosted API).
   - id: oidc
     conforms: false
-    evidence: No /.well-known/openid-configuration published.
+    evidence: No /.well-known/openid-configuration published on any host (404, probed 2026-09-03).
   - id: rfc9457-problem-details
     conforms: false
-    evidence: No public OpenAPI or application/problem+json surface; CLI reports errors on stderr with non-zero exit codes.
+    evidence: No hosted REST surface; errors are CLI exit codes 0-5 with stderr/JSON output — https://docs.swytchcode.com/cli/exec/
+  - id: retry-after
+    conforms: true
+    evidence: The retry engine honors provider Retry-After headers over its computed exponential backoff — https://docs.swytchcode.com/guides/retries/

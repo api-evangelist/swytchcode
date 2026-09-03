@@ -1,0 +1,30 @@
+generated: '2026-09-03'
+method: searched
+source: https://www.swytchcode.com/pricing
+plan_count: 3
+plans:
+  - name: Free
+    price: 0
+    currency: USD
+    billing_period: month
+    included_quota: 1000 execution calls / month
+    overage: not specified; users are notified as they approach limits
+    features: [core CLI features, community support]
+    credit_card_required: false
+  - name: Pro
+    price: 29
+    currency: USD
+    billing_period: month
+    included_quota: 5000 execution calls / month
+    overage: not specified; upgrade anytime, plan changes prorated
+    features: [everything in Free, email support, priority queue]
+  - name: Enterprise
+    price: custom
+    currency: USD
+    billing_period: custom
+    included_quota: unlimited execution calls
+    overage: n/a
+    features: [everything in Pro, dedicated Slack support, custom SLAs]
+notes: >-
+  All plans include schema validation, policy checks, and audit logging at no additional cost.
+  "We don't cut off in-flight requests without warning" when monthly limits are exceeded.

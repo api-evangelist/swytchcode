@@ -1,0 +1,29 @@
+generated: '2026-09-03'
+method: searched
+source: https://docs.swytchcode.com/guides/authentication/ , https://docs.swytchcode.com/guides/managed-authentication/ , https://docs.swytchcode.com/cli/authentication/
+docs: https://docs.swytchcode.com/guides/authentication/
+description: >-
+  Two separate authentication planes. No hosted public API — auth applies to the CLI / MCP
+  server / Runtime SDKs.
+schemes:
+  - name: account-oauth-device-flow
+    type: oauth2
+    flow: device
+    description: Swytchcode account identity via `swy login` browser device flow; session stored at ~/.swytchcode/auth.json.
+  - name: account-service-token
+    type: apiKey
+    in: environment
+    key: SWYTCHCODE_TOKEN
+    description: Service-token auth for CI/servers; read from process environment only (deliberately never from .env files).
+  - name: mcp-http-bearer
+    type: http
+    scheme: bearer
+    description: The optional local HTTP/SSE MCP transport requires a bearer token stored at ~/.swytchcode/mcp_token (`swy mcp token`). stdio transport needs no auth.
+provider_credentials:
+  description: >-
+    Third-party provider credentials (OAuth, API keys, bearer tokens) are resolved separately
+    from account auth, in priority order: environment variables, the encrypted managed
+    credential store (WorkOS-managed auth), then the project .env file. Managed via
+    `swy auth connect/status/disconnect`. Account credentials are never used against external
+    providers.
+  managed_by: WorkOS

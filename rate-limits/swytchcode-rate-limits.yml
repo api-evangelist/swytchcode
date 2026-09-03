@@ -1,0 +1,23 @@
+generated: '2026-09-03'
+method: searched
+source: https://www.swytchcode.com/pricing , https://docs.swytchcode.com/guides/retries/
+limit_count: 2
+limits:
+  - scope: per-account
+    window: month
+    limit: 1000
+    unit: execution calls
+    plan: Free
+    exhaustion: notified approaching the limit; in-flight requests are not cut off without warning
+  - scope: per-account
+    window: month
+    limit: 5000
+    unit: execution calls
+    plan: Pro
+    exhaustion: notified approaching the limit; in-flight requests are not cut off without warning
+headers: []
+notes: >-
+  Swytchcode publishes no per-request rate limits or X-RateLimit-*/RateLimit-* response headers
+  for its own service — its quota is the per-plan monthly execution-call count above (Enterprise
+  is unlimited). For DOWNSTREAM provider APIs, the execution layer handles 429s automatically
+  with exponential backoff and honors the provider's Retry-After header.

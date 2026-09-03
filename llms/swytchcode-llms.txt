@@ -1,69 +1,106 @@
 # Swytchcode
 
-> Swytchcode sits between your AI agent and production code — handling auth, retries, idempotency, and policy control across 2000+ APIs.
+> Swytchcode is a self-hosted AI agent execution layer that sits between AI agents and production APIs. It gives AI coding assistants, AI agent frameworks, and custom AI applications one runtime for authentication, policy enforcement, retries, idempotency, and audit logging - instead of every project rebuilding that logic from scratch. Swytchcode connects to thousands of production APIs (Stripe, GitHub, Slack, Notion, HubSpot, Gmail, Google Calendar, Zoom, Twilio, and more - see the full list at https://www.swytchcode.com/apis) and exposes them as trusted, schema-validated tools through the `swy` CLI, a built-in Model Context Protocol (MCP) server, and native Runtime SDKs for JavaScript/TypeScript and Python.
 
-Swytchcode is an API execution layer for AI agents and developers. Instead of hardcoding credentials, writing retry logic, and managing idempotency per integration, Swytchcode handles all of it at the CLI layer before the call leaves your machine.
+Swytchcode helps developers move faster by removing hardcoded credentials, retry logic, rate-limit handling, and manual API wiring from AI agent workflows. It works with terminal AI coding agents (Cursor, Claude Code, Codex, Copilot, Gemini CLI, Windsurf, Hermes, OpenClaw), AI agent frameworks (LangGraph, CrewAI), and AI SDKs (OpenAI Agents SDK, Anthropic SDK, Vercel AI SDK) - all backed by the same execution engine, so tool discovery, authentication, policy evaluation, and API execution behave identically no matter which client or framework is calling them.
 
-- Auth injection — API keys, OAuth tokens, and headers resolved automatically
-- Retries and idempotency — failed calls retry with backoff; duplicate requests deduplicated
-- Policy control — rate limits, allowlists, and execution rules enforced before the call is made
-- AI agent ready — structured JSON errors and MCP support so agents always know what happened
-- 2000+ APIs — Stripe, GitHub, Slack, Notion, and more
+The CLI binary is `swytchcode`, with `swy` as its shorter alias - every command shown below works with either name (e.g. `swy exec` == `swytchcode exec`).
 
-## Try instantly
+## Getting started
+
+- [Documentation home](https://docs.swytchcode.com/): Overview of Swytchcode's execution layer, quickstarts, guides, and reference docs.
+- [What is Swytchcode](https://docs.swytchcode.com/what-is-swytchcode/): The execution authority layer that connects AI agents to production APIs - architecture, request execution flow, and how the CLI, MCP server, and Runtime SDKs relate to each other.
+- [Cookbook](https://docs.swytchcode.com/cookbook/): Real-world agent example projects (LangGraph, CrewAI, OpenClaw, OpenAI Agents SDK, Anthropic SDK) with source code on GitHub - clone, swap in your keys, and ship.
+- [Full API / integration catalog](https://www.swytchcode.com/apis): Browse every production API and provider Swytchcode currently supports.
+
+## Quickstarts
+
+- [CLI only](https://docs.swytchcode.com/quickstarts/getting-started/cli-only/): Install the Swytchcode CLI, initialize a project, and connect GitHub without using MCP.
+- [MCP setup](https://docs.swytchcode.com/quickstarts/getting-started/mcp/): Configure the Swytchcode MCP server for Cursor, Claude Code, Windsurf, Copilot, Gemini CLI, Codex, Hermes, and OpenClaw.
+- [SDK Quickstart](https://docs.swytchcode.com/quickstarts/native-sdk/): Build agentic applications with the Runtime SDKs across the Anthropic SDK, OpenAI Agents SDK, and Vercel AI SDK.
+- [OpenAI SDK / OpenAI Agents SDK](https://docs.swytchcode.com/quickstarts/openai-sdk/): Give an OpenAI Agents SDK agent trusted, policy-checked tool calling.
+- [Anthropic SDK](https://docs.swytchcode.com/quickstarts/anthropic-sdk/): Connect Claude agents to trusted tools using the Swytchcode Runtime SDK.
+- [Vercel AI SDK](https://docs.swytchcode.com/quickstarts/vercel-ai-sdk/): Agentic tool calling for Vercel AI SDK applications.
+- [LangGraph](https://docs.swytchcode.com/quickstarts/langgraph/): Connect LangGraph nodes to Swytchcode and execute tools safely inside a stateful graph.
+- [CrewAI](https://docs.swytchcode.com/quickstarts/crewai/): Use Swytchcode tools inside a CrewAI crew.
+- [Hermes](https://docs.swytchcode.com/quickstarts/hermes/): Connect the Hermes terminal agent to Swytchcode via MCP.
+- [OpenClaw](https://docs.swytchcode.com/quickstarts/openclaw/): Connect OpenClaw to Swytchcode and use provider tools from the CLI and MCP server.
+
+## Core concepts
+
+- [Authentication](https://docs.swytchcode.com/guides/authentication/): The two authentication planes - Swytchcode account auth vs. third-party provider credentials - and how each is resolved.
+- [Managed Authentication](https://docs.swytchcode.com/guides/managed-authentication/): How Swytchcode securely stores and resolves provider credentials (OAuth, API keys, bearer tokens) via WorkOS-managed auth.
+- [Execution Pipeline](https://docs.swytchcode.com/guides/execution-pipeline/): The deterministic request pipeline - resolve tool, validate input, evaluate policies, resolve credentials, apply execution policy, execute, normalize response. Includes workspace linking (`swy auth workspace`).
+- [Retries](https://docs.swytchcode.com/guides/retries/): Automatic retry behavior for transient failures, exponential backoff, and `Retry-After` handling.
+- [Idempotency](https://docs.swytchcode.com/guides/idempotency/): Prevent duplicate operations on mutating requests. Modes: `none` (default) and `dynamic` (automatically attaches an idempotency key), with call-scope or workflow-scope key generation.
+- [Policies Overview](https://docs.swytchcode.com/policies/overview/): The policy engine that decides what an agent can do, when, and how - evaluated before every execution.
+- [Policy Rules](https://docs.swytchcode.com/policies/policy-rules/): Full `policies.json` condition/operator/action schema for writing custom guard rules.
+- [Production Guardrails](https://docs.swytchcode.com/policies/production-guardrails/): Recommended safeguards for running AI agents against production systems.
+- [Policy Best Practices](https://docs.swytchcode.com/policies/best-practices/): Practical recommendations for maintainable, predictable, secure policy configuration.
+
+## CLI reference
+
+- [CLI Overview](https://docs.swytchcode.com/cli/overview/): Why and how the CLI works - the execution layer between AI agents and real-world APIs.
+- [CLI Authentication](https://docs.swytchcode.com/cli/authentication/): `swy login`, `swy auth connect/status/disconnect/workspace`, and secure credential storage.
+- [Set up a Project](https://docs.swytchcode.com/cli/projects/): `swy init`, project structure, `.swytchcode/`, `tooling.json`.
+- [Manage Integrations](https://docs.swytchcode.com/cli/integrations/): `swy search`, `swy get`, `swy bootstrap` - discovering and installing API integrations. Full catalog: https://www.swytchcode.com/apis
+- [Manage Tools](https://docs.swytchcode.com/cli/tools/): `swy add`, `swy list`, `swy info`, `swy plan`, `swy discover` - enabling and inspecting trusted tools.
+- [Execute Tools](https://docs.swytchcode.com/cli/exec/): `swy exec`, passing inputs, `--dry-run`, exit codes, and the execution lifecycle.
+- [CLI Data & Telemetry](https://docs.swytchcode.com/cli/telemetry/): What Swytchcode logs locally and what opt-in anonymous telemetry sends.
+- [MCP Server](https://docs.swytchcode.com/cli/mcp/): `swy mcp serve`, transports (stdio/HTTP), profiles (agent/full), and editor registration (`swy init --editor=...`).
+- [Full CLI command reference](https://docs.swytchcode.com/reference/commands/): Every `swy`/`swytchcode` subcommand - init, get, bootstrap, add, policy, sync, workflow, discover, info, list, plan, search, demo, examples, exec, auth, login, logout, whoami, audit, config, doctor, mcp.
+- [MCP tools & architecture reference](https://docs.swytchcode.com/reference/mcp-reference/): The 7-tool agent profile and 14-tool full profile exposed by the MCP server, and how MCP maps to CLI commands.
+- [Troubleshooting](https://docs.swytchcode.com/reference/troubleshooting/): Exit codes, common failure modes (auth failed, blocked by policy, tool not found, invalid input), and diagnostic commands (`swy doctor`, `swy audit`).
+
+## Configuration files
+
+- [manifest.json reference](https://docs.swytchcode.com/configuration/manifest-json/): Endpoints, authentication, retries, timeouts, concurrency, and idempotency per integration.
+- [tooling.json reference](https://docs.swytchcode.com/configuration/tooling-json/): The trust boundary - which methods and workflows an AI agent is allowed to execute.
+- [policies.json reference](https://docs.swytchcode.com/configuration/policy-json/): Runtime guard-policy schema - conditions, operators, action types, and CLI commands for managing policies.
+
+## Runtime SDKs
+
+- [Runtime SDK Overview](https://docs.swytchcode.com/runtime-sdk/): JavaScript/TypeScript and Python SDKs sharing the same execution model as the CLI and MCP server.
+- [JavaScript Runtime SDK](https://docs.swytchcode.com/runtime-sdk/javascript/): Build Node.js, Bun, and Next.js agents with trusted tool execution.
+- [Python Runtime SDK](https://docs.swytchcode.com/runtime-sdk/python/): Execute trusted tools from Python applications and automation jobs.
+
+## Quick command reference
 
 ```bash
-npx swytchcode
-```
-
-## Install and use
-
-```bash
+# Install (npm, or curl/irm - see docs.swytchcode.com for platform-specific install)
 npm install -g swytchcode
 
-swytchcode login
+# Initialize a project and sign in
+swy init
+swy login
 
-swytchcode exec stripe.create_payment \
-  --body '{"amount":5000,"currency":"usd"}'
+# Discover and install an integration (browse all at swytchcode.com/apis)
+swy search stripe
+swy get stripe
+
+# Enable a tool and execute it
+swy add stripe.create_payment
+swy exec stripe.create_payment --body '{"amount":5000,"currency":"usd"}'
+
+# Start the MCP server for AI coding agents
+swy mcp serve
 ```
 
-## For AI agents (MCP)
-
-Wire up Cursor or Claude Code with one command — registers the MCP server in your editor's config and starts the daemon automatically:
-
-```bash
-# Cursor
-swytchcode init --editor=cursor --mode=sandbox
-
-# Claude Code
-swytchcode init --editor=claude --mode=sandbox
-```
-
-Or start the MCP server manually:
-
-```bash
-swytchcode mcp serve --transport http --port 5476 --daemon
-```
-
-SSE endpoint: `http://localhost:5476/sse`
-
-## Docs
-
-- Quickstart: https://docs.swytchcode.com/quickstart/getstarted/
-- CLI reference: https://docs.swytchcode.com/cli/commands/
-- exec: https://docs.swytchcode.com/cli/exec/
-- MCP server: https://docs.swytchcode.com/cli/mcp/
-- AI agents: https://docs.swytchcode.com/cli/agents/
-- API keys: https://docs.swytchcode.com/guides/apikey/
-- Integrations: https://docs.swytchcode.com/guides/integrations/
-- Changelog: https://docs.swytchcode.com/support/changelog/
-
-## Links
+## Useful links
 
 - Website: https://swytchcode.com
-- Pricing: https://swytchcode.com/pricing
-- Discord: https://discord.gg/zuSXSv5GWs
-- X: https://x.com/swytchcode
+- Full API / integration catalog: https://www.swytchcode.com/apis
+- Documentation: https://docs.swytchcode.com
+- CLI command reference: https://docs.swytchcode.com/reference/commands/
+- Troubleshooting: https://docs.swytchcode.com/reference/troubleshooting/
+- GitHub: https://github.com/swytchcodehq
+- Example projects repo: https://github.com/swytchcodehq/swytchcode-examples
+- Discord community: https://discord.gg/zuSXSv5GWs
+- X (Twitter): https://x.com/swytchcode
 - LinkedIn: https://www.linkedin.com/company/swytchcode
-- contact : https://swytchcode.com/contact
-- GitHub : https://github.com/swytchcodehq
+- Support: hello@swytchcode.com
+
+## Optional
+
+- [Idempotency guide](https://docs.swytchcode.com/guides/idempotency/): background on why mutating API calls need idempotency keys and how Swytchcode automates it.
+- [Retries guide](https://docs.swytchcode.com/guides/retries/): background on transient-failure handling.

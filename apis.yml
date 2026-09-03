@@ -1,34 +1,37 @@
 deliveryModel:
   model: library
   open_source: false
-  commercial: false
+  commercial: true
   callable_host: false
-  label: Library · distributed through package registries, no callable service
-  confidence: low
+  label: Library · CLI + local MCP server distributed through package registries, no callable service
+  confidence: high
   source:
-  - none
-  generated: '2026-08-28'
-  method: derived
+  - https://docs.swytchcode.com/llms.txt
+  - https://www.swytchcode.com/pricing
+  generated: '2026-09-03'
+  method: searched
 accessModel:
-  pricing: unknown
-  onboarding: unknown
-  trial: false
-  try_now: false
-  public: false
-  label: Unknown
-  confidence: low
-  source: []
-  generated: '2026-07-22'
-  method: derived
+  pricing: freemium
+  onboarding: self-service
+  trial: true
+  try_now: true
+  public: true
+  label: Freemium · self-service (free tier 1,000 execution calls/mo, no credit card; Pro $29/mo)
+  confidence: high
+  source:
+  - https://www.swytchcode.com/pricing
+  generated: '2026-09-03'
+  method: searched
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/swytchcode.png
 name: Swytchcode
 description: >-
-  Deterministic API-execution layer for AI agents and developers that sits between an agent and production APIs,
-  handling auth, retries, idempotency, and policy control across 2,000+ APIs. Consumable via a public npm-installable
-  CLI and a local MCP server, with a published llms.txt.
+  Self-hosted AI agent execution layer that sits between an agent and production APIs, handling auth, retries,
+  idempotency, policy enforcement, and audit logging across 2,000+ APIs. Consumable via a public npm-installable
+  CLI (`swy`), an embedded local MCP server, and Runtime SDKs for JavaScript/TypeScript, Python, and Go, with a
+  published llms.txt.
 url: https://raw.githubusercontent.com/api-evangelist/swytchcode/refs/heads/main/apis.yml
 created: '2026-07-02'
-modified: '2026-06-20'
+modified: '2026-09-03'
 specificationVersion: '0.23'
 tags:
   - AI / Agent Tooling
@@ -55,8 +58,9 @@ tags_raw:
 apis:
   - name: Swytchcode Documentation & Agent Surfaces
     description: >-
-      Swytchcode's publicly consumable surfaces: developer documentation and a published llms.txt. The primary interface
-      is an npm-installable CLI plus a local MCP server (localhost-only, not a hosted endpoint).
+      Swytchcode's publicly consumable surfaces: developer documentation and a published llms.txt. The primary
+      interface is an npm-installable CLI (`swy`) plus a local MCP server (stdio/localhost, not a hosted endpoint)
+      and Runtime SDKs for JS/TS, Python, and Go.
     humanURL: https://docs.swytchcode.com
     baseURL: https://docs.swytchcode.com
     tags:
@@ -89,6 +93,7 @@ apis:
 maintainers:
   - FN: Aditya Rohit
     url: https://www.swytchcode.com/about
+    email: hello@swytchcode.com
 generated:
   by: apis.io/add
   model: claude-opus-4-8
@@ -97,19 +102,54 @@ generated:
 common:
   - type: DomainSecurity
     url: security/swytchcode-domain-security.yml
-  - url: https://blog.swytchcode.com/feed/
-    type: Blog
   - type: Packages
     url: packages/swytchcode-packages.yml
-  - type: WellKnown
-    url: well-known/swytchcode-well-known.yml
+  - type: SDKs
+    url: packages/swytchcode-packages.yml
   - type: MCPServer
     url: mcp/swytchcode-mcp.yml
   - type: LLMsTxt
     url: llms/swytchcode-llms.txt
-  - type: LLMsTxt
-    url: llms/swytchcode-llms-full.txt
   - type: Conformance
     url: conformance/swytchcode-conformance.yml
   - type: Lifecycle
     url: lifecycle/swytchcode-lifecycle.yml
+  - type: CLI
+    url: cli/swytchcode-cli.yml
+  - type: Conventions
+    url: conventions/swytchcode-conventions.yml
+  - type: Idempotency
+    url: conventions/swytchcode-conventions.yml
+  - type: Authentication
+    url: authentication/swytchcode-authentication.yml
+  - type: ErrorCatalog
+    url: errors/swytchcode-problem-types.yml
+  - type: Plans
+    url: plans/swytchcode-plans-pricing.yml
+  - type: RateLimits
+    url: rate-limits/swytchcode-rate-limits.yml
+  - type: ChangeLog
+    url: changelog/swytchcode-changelog.yml
+  - type: Sandbox
+    url: sandbox/swytchcode-sandbox.yml
+  - type: Pricing
+    url: https://www.swytchcode.com/pricing
+  - type: TermsOfService
+    url: https://www.swytchcode.com/terms
+  - type: PrivacyPolicy
+    url: https://www.swytchcode.com/privacy
+  - type: GitHubOrganization
+    url: https://github.com/swytchcodehq
+  - type: GettingStarted
+    url: https://docs.swytchcode.com/quickstarts/getting-started/cli-only/
+  - type: APIReference
+    url: https://docs.swytchcode.com/reference/commands/
+  - type: Support
+    url: https://docs.swytchcode.com/reference/troubleshooting/
+  - type: Login
+    url: https://app.swytchcode.com/
+x-enrichment:
+  date: '2026-09-03'
+  status: enriched
+  artifacts_added: 8
+  pass: local-v1

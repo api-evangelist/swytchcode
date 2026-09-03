@@ -1,0 +1,17 @@
+generated: '2026-09-03'
+method: searched
+source: https://docs.swytchcode.com/cli/exec/ , https://docs.swytchcode.com/reference/commands/
+description: >-
+  Swytchcode ships rehearsal/simulation modes rather than a hosted sandbox environment —
+  fitting for a self-hosted execution layer with no hosted API of its own.
+modes:
+  - name: demo
+    invocation: '`swy demo` or `swy exec --demo` / MCP swytchcode_exec demo mode'
+    description: Runs bundled demos against simulated responses; requires no setup, no account, and no third-party API keys.
+  - name: dry-run
+    invocation: '`swy exec --dry-run` / MCP swytchcode_exec dry_run mode'
+    description: Performs the full pipeline — tool resolution, input schema validation, policy evaluation — without making the actual API request.
+  - name: explain
+    invocation: '`swy exec --explain` / MCP swytchcode_exec explain mode'
+    description: Describes in plain language what a call would do, without executing it.
+test_credentials: none published — demo mode explicitly removes the need for API keys; live mode uses the user's own provider credentials.

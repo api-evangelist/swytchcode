@@ -1,0 +1,68 @@
+generated: '2026-09-03'
+method: searched
+source: https://docs.swytchcode.com/guides/idempotency/ , https://docs.swytchcode.com/guides/retries/ , https://docs.swytchcode.com/guides/authentication/ , https://docs.swytchcode.com/cli/exec/
+description: >-
+  Cross-cutting runtime semantics of the Swytchcode execution layer. Swytchcode has no hosted
+  public API of its own — these conventions govern how its CLI / MCP server / Runtime SDKs
+  execute calls against third-party provider APIs on the agent's behalf.
+authentication:
+  style: two-plane
+  account_auth:
+    method: OAuth device flow (`swy login`), session stored at ~/.swytchcode/auth.json
+    service_token: SWYTCHCODE_TOKEN environment variable (read from process env only, never .env files)
+  provider_credentials:
+    resolution_order: [environment variables, managed credential store (encrypted, WorkOS-managed), project .env file]
+    commands: swy auth connect / status / disconnect / workspace
+  docs: https://docs.swytchcode.com/guides/authentication/
+idempotency:
+  supported: true
+  modes: [none, dynamic]
+  default_mode: none
+  header: Idempotency-Key
+  scopes: [call, workflow]
+  default_scope: call
+  config: manifest.json execution_policy.idempotency {mode, header_name, scope}
+  behavior: >-
+    In dynamic mode Swytchcode generates and attaches an idempotency key to mutating requests
+    and reuses the same key across retries; workflow scope persists one key across multi-step
+    workflows. No retention window is stated (retention belongs to the downstream provider).
+  docs: https://docs.swytchcode.com/guides/idempotency/
+retries:
+  automatic: true
+  algorithm: exponential backoff
+  defaults: { max_retries: 3, base_delay_ms: 500, max_delay_ms: 30000 }
+  retry_on: [429, 503, 504, network errors]
+  non_retryable: [400, 401, 403, 404, 422]
+  retry_after: Provider Retry-After header is respected over the computed delay
+  on_401: default fail; "refresh_and_retry" enables automatic OAuth token refresh
+  config: manifest.json execution_policy {max_retries, base_delay_ms, max_delay_ms, retry_on, non_retryable, on_401}
+  docs: https://docs.swytchcode.com/guides/retries/
+rate_limit_signaling:
+  note: 429 handled by the retry engine with Retry-After honored; Swytchcode's own quota is a per-plan monthly execution-call count (see rate-limits/ and plans/).
+error_envelope:
+  style: CLI exit codes + stderr; structured JSON output available via --json
+  exit_codes: { 0: success, 1: execution failed, 2: invalid input, 3: auth failed, 4: blocked by policy, 5: tool not found }
+dry_run:
+  supported: true
+  mechanism: "`swy exec --dry-run` performs all validation steps without making the API request; `--demo` runs against simulated responses without auth; `--explain` describes the call without executing"
+  docs: https://docs.swytchcode.com/cli/exec/
+versioning:
+  scheme: semver (npm package `swytchcode`, current 2.20.15)
+request_tracing:
+  note: "`swy audit` records network activity, policy violations, and execution stats locally"
+policy_engine:
+  note: Guard policies (policies.json) are evaluated before every execution; tooling.json defines the trust boundary of methods/workflows an agent may execute.
+  docs: https://docs.swytchcode.com/policies/overview/
+reversibility:
+  status: na
+  note: >-
+    Swytchcode exposes no hosted write API of its own — writes it performs are calls into
+    third-party provider APIs, whose reversal semantics (refund, cancel, void) belong to those
+    providers. Swytchcode's own mitigations are pre-execution: policy gating, --dry-run
+    rehearsal, --demo simulation, and dynamic idempotency. No reversal windows are (or could
+    honestly be) stated for its own surface.
+cross_links:
+  errors: errors/swytchcode-problem-types.yml
+  lifecycle: lifecycle/swytchcode-lifecycle.yml
+  authentication: authentication/swytchcode-authentication.yml
+  rate_limits: rate-limits/swytchcode-rate-limits.yml

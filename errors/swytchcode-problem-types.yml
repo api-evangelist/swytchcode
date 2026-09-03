@@ -1,0 +1,33 @@
+generated: '2026-09-03'
+method: searched
+source: https://docs.swytchcode.com/cli/exec/ , https://docs.swytchcode.com/guides/retries/ , https://docs.swytchcode.com/reference/troubleshooting/
+format: cli-exit-codes
+notes: >-
+  Swytchcode has no hosted REST API of its own, so there is no application/problem+json
+  (RFC 9457) surface. Errors surface as CLI/SDK exit codes with stderr detail (structured
+  output via --json); downstream provider HTTP errors are classified retryable vs
+  non-retryable by the execution engine.
+problems:
+  - code: 1
+    title: Execution failed
+    detail: The tool call ran and failed (downstream API error after retry budget exhausted, or runtime failure).
+    remediation: Inspect stderr / `swy audit`; check downstream provider status.
+  - code: 2
+    title: Invalid input or validation error
+    detail: Input did not validate against the tool's schema.
+    remediation: Run `swy info <tool>` to inspect the input/output schema.
+  - code: 3
+    title: Authentication failed
+    detail: Account session or provider credential missing/invalid.
+    remediation: '`swy login` for account auth; `swy auth connect <provider>` / `swy auth status` for provider credentials; `swy doctor` for auth posture.'
+  - code: 4
+    title: Execution blocked by policy
+    detail: A guard policy in policies.json denied the call before execution.
+    remediation: Review `swy policy` rules and tooling.json trust boundary.
+  - code: 5
+    title: Tool not found
+    detail: Canonical ID does not resolve to an enabled tool.
+    remediation: '`swy list` / `swy search` / `swy add` the integration.'
+downstream_http_classification:
+  retryable: [429, 503, 504]
+  non_retryable: [400, 401, 403, 404, 422]
