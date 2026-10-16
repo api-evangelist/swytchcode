@@ -2,11 +2,21 @@
   "repo": "swytchcode",
   "feeds": [
     {
-      "source": "https://blog.swytchcode.com/feed/",
-      "error": "URLError"
+      "source": "https://www.swytchcode.com/blogs",
+      "feed_url": "https://www.swytchcode.com/blogs/rss.xml",
+      "title": "",
+      "saved": 0,
+      "method": "discovered"
+    },
+    {
+      "source": "https://www.swytchcode.com/blogs/rss.xml",
+      "feed_url": "https://www.swytchcode.com/blogs/rss.xml",
+      "title": "",
+      "saved": 0,
+      "method": "feed"
     }
   ],
-  "fetched": "2026-08-30T22:33:40Z",
+  "fetched": "2026-10-10T13:15:00Z",
   "post_count": 6,
   "feed_nature": "vendor-blog",
   "feed_nature_basis": "blog_subdomain",
